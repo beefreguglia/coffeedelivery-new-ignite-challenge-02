@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { ButtonContainer, ButtonVariants, CartCounter } from './styles'
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   variant: ButtonVariants
   isLargeButton?: boolean
@@ -15,9 +15,10 @@ export default function Button({
   isLargeButton = false,
   isCart = false,
   cartQuantity = 0,
+  ...props
 }: ButtonProps) {
   return (
-    <ButtonContainer variant={variant} isLargeButton={isLargeButton}>
+    <ButtonContainer {...props} variant={variant} isLargeButton={isLargeButton}>
       {children}
       {isCart && cartQuantity !== 0 && (
         <CartCounter variant={variant}>{cartQuantity}</CartCounter>
