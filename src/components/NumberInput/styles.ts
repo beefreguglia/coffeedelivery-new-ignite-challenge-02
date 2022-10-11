@@ -11,8 +11,9 @@ export const DecrementButton = styled.button`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme['grey-400']};
-  font-weight: bold;
   border: none;
+  height: 100%;
+  width: 100%;
   padding: 0.4rem 0.5rem;
   cursor: pointer;
   color: ${({ theme }) => theme['purple-500']};
@@ -32,6 +33,8 @@ export const Input = styled.input`
   transition: 400ms;
   width: 100%;
   min-width: 1.25rem;
+  height: 100%;
+  padding: 0.4rem 0.5rem;
   border: none;
   text-align: center;
   padding: 0.3rem 0;
@@ -49,6 +52,8 @@ export const IncrementButton = styled.button`
   justify-content: center;
   background-color: ${({ theme }) => theme['grey-400']};
   border: none;
+  height: 100%;
+  width: 100%;
   padding: 0.4rem 0.5rem;
   cursor: pointer;
   color: ${({ theme }) => theme['purple-500']};
