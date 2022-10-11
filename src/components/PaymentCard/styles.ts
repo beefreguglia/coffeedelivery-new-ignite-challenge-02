@@ -44,6 +44,7 @@ export const ButtonsContainer = styled.div`
     gap: 0.75rem;
     padding: 1rem;
     justify-content: flex-start;
+    text-transform: uppercase;
 
     svg {
       color: ${({ theme }) => theme['purple-500']};
