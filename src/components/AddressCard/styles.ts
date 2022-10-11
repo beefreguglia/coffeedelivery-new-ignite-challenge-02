@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
-export const AddressCardContainer = styled.div`
-  min-width: 640px;
-`
+export const AddressCardContainer = styled.div``
 
 export const FormCard = styled.form`
   padding: 2.5rem;
@@ -17,6 +15,7 @@ export const MainTitle = styled.h1`
   margin-bottom: 1rem;
   color: ${({ theme }) => theme['grey-800']};
 `
+
 export const CardTitle = styled.h2`
   font-size: 1rem;
   line-height: 130%;
