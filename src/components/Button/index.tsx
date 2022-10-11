@@ -6,6 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariants
   isLargeButton?: boolean
   isCart?: boolean
+  isSelected?: boolean
   cartQuantity?: number
 }
 
@@ -14,11 +15,17 @@ export default function Button({
   variant,
   isLargeButton = false,
   isCart = false,
+  isSelected = false,
   cartQuantity = 0,
   ...props
 }: ButtonProps) {
   return (
-    <ButtonContainer {...props} variant={variant} isLargeButton={isLargeButton}>
+    <ButtonContainer
+      {...props}
+      variant={variant}
+      isLargeButton={isLargeButton}
+      isSelected={isSelected}
+    >
       {children}
       {isCart && cartQuantity !== 0 && (
         <CartCounter variant={variant}>{cartQuantity}</CartCounter>

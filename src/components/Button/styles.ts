@@ -10,6 +10,7 @@ export type ButtonVariants =
 interface ButtonContainerProps {
   variant: ButtonVariants
   isLargeButton: boolean
+  isSelected: boolean
 }
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
@@ -34,13 +35,14 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   color: ${({ theme, variant }) =>
     variant === 'lightYellow' && theme['yellow-500']};
   cursor: pointer;
-  transition: 400ms;
+  transition: all 400ms;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
-
+  border: ${({ isSelected, theme }) =>
+    isSelected && `1px solid ${theme['purple-500']}`};
   :hover {
     background-color: ${({ variant, theme }) =>
       variant === 'purple' && theme['purple-500']};
