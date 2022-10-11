@@ -26,12 +26,28 @@ import Mochaccino from '../../assets/Mochaccino.png'
 import NumberInput from '../NumberInput'
 import Button from '../Button'
 
+type Images =
+  | 'Capuccino'
+  | 'Arabe'
+  | 'CafeComLeite'
+  | 'CafeGelado'
+  | 'Cubano'
+  | 'ChocolateQuente'
+  | 'Expresso'
+  | 'ExpressoCremoso'
+  | 'Havaiano'
+  | 'Irlandes'
+  | 'Latte'
+  | 'Macchiato'
+  | 'Americano'
+  | 'Mochaccino'
+
 interface CardProps {
   name: string
   description: string
   pins: string[]
   price: number
-  image: string
+  image: Images
 }
 
 export default function Card({
@@ -63,13 +79,11 @@ export default function Card({
         ))}
       </PinsContainer>
       <Title>{name}</Title>
-      <Description>
-        O tradicional café feito com agua quente e graos moídos
-      </Description>
+      <Description>{description}</Description>
       <PurchaseContainer>
         <Price>
           <span>R$</span>
-          9,90
+          {price}
         </Price>
         <QuantityContainer>
           <NumberInput />
