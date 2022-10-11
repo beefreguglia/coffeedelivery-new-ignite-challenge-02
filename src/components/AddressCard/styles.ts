@@ -40,9 +40,30 @@ export const Text = styled.p`
   margin-left: 1.875rem;
   margin-bottom: 2rem;
 `
-
 export const InputDivider = styled.div`
-  display: flex;
+  display: grid;
   gap: 0.75rem;
+  grid-template-columns: 200px;
+  margin-bottom: 1rem;
+`
+
+export const InputDividerLarge = styled.div`
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 1rem;
+`
+
+export const DoubleInputDivider = styled.div`
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 200px 1fr;
+  margin-bottom: 1rem;
+`
+
+export const TripleInputDivider = styled.div`
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 200px 1fr 60px;
   margin-bottom: 1rem;
 `

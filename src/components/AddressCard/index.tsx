@@ -8,6 +8,9 @@ import {
   TitleContainer,
   Text,
   InputDivider,
+  DoubleInputDivider,
+  TripleInputDivider,
+  InputDividerLarge,
 } from './styles'
 
 export default function AddressCard() {
@@ -23,18 +26,18 @@ export default function AddressCard() {
         <InputDivider>
           <Input placeholder="CEP" isMediumButton />
         </InputDivider>
-        <InputDivider>
+        <InputDividerLarge>
           <Input placeholder="Rua" />
-        </InputDivider>
-        <InputDivider>
+        </InputDividerLarge>
+        <DoubleInputDivider>
           <Input placeholder="Número" isMediumButton />
           <Input placeholder="Complemento" isOpcional />
-        </InputDivider>
-        <InputDivider>
+        </DoubleInputDivider>
+        <TripleInputDivider>
           <Input placeholder="Bairro" isMediumButton />
           <Input placeholder="Cidade" />
           <Input placeholder="UF" isSmallButton />
-        </InputDivider>
+        </TripleInputDivider>
       </FormCard>
     </AddressCardContainer>
   )
