@@ -28,6 +28,9 @@ import Button from '../Button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
+import { toast } from 'react-toastify'
 
 type Images =
   | 'Capuccino'
@@ -57,7 +60,7 @@ const newOrderValidationSchema = zod.object({
   coffeeQuantity: zod.number().min(1, 'Informe uma quantidade valida'),
 })
 
-type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
+export type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
 
 export default function Card({
   image,
@@ -70,9 +73,19 @@ export default function Card({
     resolver: zodResolver(newOrderValidationSchema),
     defaultValues: { coffeeQuantity: 0 },
   })
+  const { createNewOrder } = useContext(OrderContext)
 
   function handleNewOrder(data: NewOrderFormData) {
-    console.log(data)
+    createNewOrder({
+      coffeeQuantity: data.coffeeQuantity,
+      name,
+      price,
+    })
+    if (data.coffeeQuantity > 1) {
+      toast.success('Os cafés foram adicionados com sucesso ao seu carrinho!')
+    } else {
+      toast.success('O café foi adicionado com sucesso ao seu carrinho!')
+    }
     reset()
   }
 
