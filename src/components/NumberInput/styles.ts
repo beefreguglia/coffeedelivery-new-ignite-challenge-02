@@ -14,11 +14,12 @@ export const DecrementButton = styled.button`
   border: none;
   height: 100%;
   width: 100%;
-  padding: 0.4rem 0.5rem;
+  padding: 0.4rem;
   cursor: pointer;
   color: ${({ theme }) => theme['purple-500']};
   transition: all 400ms;
   border-radius: 6px 0 0 6px;
+
   &:hover {
     color: ${({ theme }) => theme['purple-900']};
   }
@@ -54,11 +55,12 @@ export const IncrementButton = styled.button`
   border: none;
   height: 100%;
   width: 100%;
-  padding: 0.4rem 0.5rem;
+  padding: 0.4rem;
   cursor: pointer;
   color: ${({ theme }) => theme['purple-500']};
   transition: 400ms;
   border-radius: 0 6px 6px 0;
+
   &:hover {
     color: ${({ theme }) => theme['purple-900']};
   }

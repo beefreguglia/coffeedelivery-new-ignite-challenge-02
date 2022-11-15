@@ -1,6 +1,6 @@
 import { Minus, Plus } from 'phosphor-react'
 import { InputHTMLAttributes } from 'react'
-import { UseFormRegister } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import {
   DecrementButton,
   IncrementButton,
@@ -8,37 +8,27 @@ import {
   InputContainer,
 } from './styles'
 
-interface NewOrderFormData {
-  coffeeQuantity: number
-}
+interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  register?: UseFormRegister<NewOrderFormData>
-}
+export default function NumberInput({ id, ...rest }: NumberInputProps) {
+  const { register, setValue, watch } = useFormContext()
+  const coffeeValue = watch('coffeeQuantity')
+  const isMaxValue = coffeeValue >= 10
+  const isMinValue = coffeeValue <= 0
+  function incresseValue() {
+    setValue('coffeeQuantity', coffeeValue + 1)
+  }
+  function decreesValue() {
+    setValue('coffeeQuantity', coffeeValue - 1)
+  }
 
-export default function NumberInput({
-  register,
-  id,
-  ...rest
-}: NumberInputProps) {
-  // function incresseValue() {
-  //   setValue((state) => state + 1)
-  // }
-  // function decreesValue() {
-  //   setValue((state) => state - 1)
-  // }
-  // function changeValue(e: FormEvent<HTMLInputElement>) {
-  //   if (Number(e.currentTarget.value) > 10) {
-  //     setValue(10)
-  //   } else if (Number(e.currentTarget.value) <= 1) {
-  //     setValue(1)
-  //   } else {
-  //     setValue(Number(e.currentTarget.value))
-  //   }
-  // }
   return (
     <InputContainer>
-      <DecrementButton>
+      <DecrementButton
+        type="button"
+        onClick={decreesValue}
+        disabled={isMinValue}
+      >
         <Minus weight="bold" />
       </DecrementButton>
       {register ? (
@@ -53,7 +43,11 @@ export default function NumberInput({
         <Input type="number" {...rest} />
       )}
 
-      <IncrementButton>
+      <IncrementButton
+        type="button"
+        onClick={incresseValue}
+        disabled={isMaxValue}
+      >
         <Plus weight="bold" />
       </IncrementButton>
     </InputContainer>

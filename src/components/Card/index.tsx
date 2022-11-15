@@ -25,7 +25,7 @@ import Macchiato from '../../assets/Macchiato.png'
 import Mochaccino from '../../assets/Mochaccino.png'
 import NumberInput from '../NumberInput'
 import Button from '../Button'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useContext } from 'react'
@@ -69,10 +69,11 @@ export default function Card({
   pins,
   price,
 }: CardProps) {
-  const { register, handleSubmit, reset } = useForm<NewOrderFormData>({
+  const newOrderForm = useForm<NewOrderFormData>({
     resolver: zodResolver(newOrderValidationSchema),
     defaultValues: { coffeeQuantity: 0 },
   })
+  const { handleSubmit, reset } = newOrderForm
   const { createNewOrder } = useContext(OrderContext)
 
   function handleNewOrder(data: NewOrderFormData) {
@@ -118,7 +119,9 @@ export default function Card({
           {price}
         </Price>
         <QuantityContainer>
-          <NumberInput id="coffeesQuantity" register={register} />
+          <FormProvider {...newOrderForm}>
+            <NumberInput id="coffeesQuantity" />
+          </FormProvider>
           <Button variant="purple" type="submit">
             <ShoppingCart weight="fill" />
           </Button>
