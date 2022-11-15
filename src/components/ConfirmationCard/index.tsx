@@ -28,7 +28,7 @@ export default function ConfirmationCard() {
             <Value>R$ 3,50</Value>
           </ValuesContainer>
           <ValuesContainer>
-            <Total>Entrega</Total>
+            <Total>Total</Total>
             <Total>R$ 33,20</Total>
           </ValuesContainer>
           <Button variant="yellow" isLargeButton>

@@ -2,13 +2,30 @@ import Banner from '../../components/Banner'
 import Card from '../../components/Card'
 import { CardsContainer, CoffeesContainer, HomeContainer } from './styles'
 
+type Images =
+  | 'Capuccino'
+  | 'Arabe'
+  | 'CafeComLeite'
+  | 'CafeGelado'
+  | 'Cubano'
+  | 'ChocolateQuente'
+  | 'Expresso'
+  | 'ExpressoCremoso'
+  | 'Havaiano'
+  | 'Irlandes'
+  | 'Latte'
+  | 'Macchiato'
+  | 'Americano'
+  | 'Mochaccino'
+
 interface Coffee {
   id: number
   name: string
   description: string
-  image: string
+  image: Images
   pins: string[]
   price: number
+  quantity: number
 }
 
 const coffees: Coffee[] = [
@@ -19,6 +36,7 @@ const coffees: Coffee[] = [
     image: 'Expresso',
     pins: ['Tradicional'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 2,
@@ -27,6 +45,7 @@ const coffees: Coffee[] = [
     image: 'Americano',
     pins: ['Tradicional'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 3,
@@ -35,6 +54,7 @@ const coffees: Coffee[] = [
     image: 'ExpressoCremoso',
     pins: ['Tradicional'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 4,
@@ -43,6 +63,7 @@ const coffees: Coffee[] = [
     image: 'CafeGelado',
     pins: ['Tradicional', 'gelado'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 5,
@@ -51,6 +72,7 @@ const coffees: Coffee[] = [
     image: 'CafeComLeite',
     pins: ['Tradicional', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 6,
@@ -60,6 +82,7 @@ const coffees: Coffee[] = [
     image: 'Latte',
     pins: ['Tradicional', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 7,
@@ -69,6 +92,7 @@ const coffees: Coffee[] = [
     image: 'Capuccino',
     pins: ['Tradicional', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 8,
@@ -78,6 +102,7 @@ const coffees: Coffee[] = [
     image: 'Macchiato',
     pins: ['Tradicional', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 9,
@@ -86,6 +111,7 @@ const coffees: Coffee[] = [
     image: 'Mochaccino',
     pins: ['Tradicional', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 10,
@@ -94,6 +120,7 @@ const coffees: Coffee[] = [
     image: 'ChocolateQuente',
     pins: ['especial', 'com leite'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 11,
@@ -103,6 +130,7 @@ const coffees: Coffee[] = [
     image: 'Cubano',
     pins: ['especial', 'alcoólico', 'gelado'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 12,
@@ -111,6 +139,7 @@ const coffees: Coffee[] = [
     image: 'Havaiano',
     pins: ['especial'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 13,
@@ -119,6 +148,7 @@ const coffees: Coffee[] = [
     image: 'Arabe',
     pins: ['especial'],
     price: 9.9,
+    quantity: 0,
   },
   {
     id: 14,
@@ -127,6 +157,7 @@ const coffees: Coffee[] = [
     image: 'Irlandes',
     pins: ['especial', 'alcoólico'],
     price: 9.9,
+    quantity: 0,
   },
 ]
 

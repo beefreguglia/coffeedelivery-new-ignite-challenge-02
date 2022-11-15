@@ -25,6 +25,9 @@ import Macchiato from '../../assets/Macchiato.png'
 import Mochaccino from '../../assets/Mochaccino.png'
 import NumberInput from '../NumberInput'
 import Button from '../Button'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 
 type Images =
   | 'Capuccino'
@@ -50,6 +53,12 @@ interface CardProps {
   image: Images
 }
 
+const newOrderValidationSchema = zod.object({
+  coffeeQuantity: zod.number().min(1, 'Informe uma quantidade valida'),
+})
+
+type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
+
 export default function Card({
   image,
   description,
@@ -57,8 +66,18 @@ export default function Card({
   pins,
   price,
 }: CardProps) {
+  const { register, handleSubmit, reset } = useForm<NewOrderFormData>({
+    resolver: zodResolver(newOrderValidationSchema),
+    defaultValues: { coffeeQuantity: 0 },
+  })
+
+  function handleNewOrder(data: NewOrderFormData) {
+    console.log(data)
+    reset()
+  }
+
   return (
-    <CardContainer>
+    <CardContainer onSubmit={handleSubmit(handleNewOrder)}>
       {image === 'Capuccino' && <img src={Capuccino} alt="" />}
       {image === 'Arabe' && <img src={Arabe} alt="" />}
       {image === 'CafeComLeite' && <img src={CafeComLeite} alt="" />}
@@ -86,8 +105,8 @@ export default function Card({
           {price}
         </Price>
         <QuantityContainer>
-          <NumberInput />
-          <Button variant="purple">
+          <NumberInput id="coffeesQuantity" register={register} />
+          <Button variant="purple" type="submit">
             <ShoppingCart weight="fill" />
           </Button>
         </QuantityContainer>

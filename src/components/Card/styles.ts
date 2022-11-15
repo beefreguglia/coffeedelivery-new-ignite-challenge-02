@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 19.375rem;
   width: 16rem;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   background-color: ${({ theme }) => theme['grey-200']};
   border-radius: 6px 36px;
   img {
