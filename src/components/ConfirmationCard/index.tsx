@@ -38,6 +38,7 @@ const confirmationOrderValidationSchema = zod.object({
 export type ConfirmationOrderFormData = zod.infer<
   typeof confirmationOrderValidationSchema
 >
+
 type FieldIds =
   | 'Americano'
   | 'Arabe'
@@ -53,9 +54,24 @@ type FieldIds =
   | 'Latte'
   | 'Macchiato'
   | 'Mochaccino'
+
 export default function ConfirmationCard() {
-  const { orders } = useContext(OrderContext)
+  const deliveryValue = 3.5
+  const { orders, allItemsValue } = useContext(OrderContext)
   const haveOrders = orders.length > 0
+  const allValue = deliveryValue + allItemsValue
+  const formattedDeliveryValue = deliveryValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
+  const formattedOrderValue = allItemsValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
+  const formattedAllValue = allValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
 
   const confirmationOrderForm = useForm<ConfirmationOrderFormData>({
     resolver: zodResolver(confirmationOrderValidationSchema),
@@ -76,6 +92,7 @@ export default function ConfirmationCard() {
       Mochaccino: 0,
     },
   })
+
   const { setValue } = confirmationOrderForm
 
   useEffect(() => {
@@ -113,15 +130,15 @@ export default function ConfirmationCard() {
         <TotalValuesContainer>
           <ValuesContainer>
             <Text>Total de Itens</Text>
-            <Value>R$ 29,70</Value>
+            <Value>{formattedOrderValue}</Value>
           </ValuesContainer>
           <ValuesContainer>
             <Text>Entrega</Text>
-            <Value>R$ 3,50</Value>
+            <Value>{formattedDeliveryValue}</Value>
           </ValuesContainer>
           <ValuesContainer>
             <Total>Total</Total>
-            <Total>R$ 33,20</Total>
+            <Total>{formattedAllValue}</Total>
           </ValuesContainer>
           <Button
             variant="yellow"

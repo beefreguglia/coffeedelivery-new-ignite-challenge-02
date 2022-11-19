@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from 'react'
+import { toast } from 'react-toastify'
 type Images =
   | 'Capuccino'
   | 'Arabe'
@@ -33,6 +34,7 @@ type Order = {
 interface OrderContextType {
   orders: Order[]
   allItemsQuantity: number
+  allItemsValue: number
   createNewOrder: (data: createOrderData) => void
   deleteOrder: (id: string) => void
 }
@@ -45,34 +47,62 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [orders, setOrders] = useState<Order[]>([])
+
   const allItemsQuantity: number = orders.reduce(
     (prevVal, currentOrder) => prevVal + currentOrder.quantity,
+    0,
+  )
+  const allItemsValue: number = orders.reduce(
+    (prevVal, currentOrder) =>
+      prevVal + currentOrder.price * currentOrder.quantity,
     0,
   )
 
   function createNewOrder(data: createOrderData) {
     const id = String(new Date().getTime())
-    const newOrder: Order = {
+    let orderAux: Order = {
       id,
       name: data.name,
       price: data.price,
       quantity: data.coffeeQuantity,
       image: data.image,
     }
-    setOrders((state) => [...state, newOrder])
+    const findedOrder = orders.find((order) => order.name === data.name)
+
+    if (findedOrder) {
+      orderAux = {
+        ...findedOrder,
+        quantity: findedOrder.quantity + data.coffeeQuantity,
+      }
+      const newOrder = orders.map((order) => {
+        if (order.name === orderAux.name) {
+          return { ...orderAux }
+        }
+        return order
+      })
+      setOrders(newOrder)
+    } else {
+      setOrders((state) => [...state, orderAux])
+    }
   }
 
   function deleteOrder(id: string) {
     const filteredOrders = orders.filter((order) => order.id !== id)
-    setOrders(filteredOrders)
+    if (filteredOrders.length !== orders.length) {
+      toast.success('O pedido foi removido com sucesso!')
+      setOrders(filteredOrders)
+    } else {
+      toast.error('O pedido não foi encontrado!')
+    }
   }
 
   return (
     <OrderContext.Provider
       value={{
         orders,
-        createNewOrder,
         allItemsQuantity,
+        allItemsValue,
+        createNewOrder,
         deleteOrder,
       }}
     >
