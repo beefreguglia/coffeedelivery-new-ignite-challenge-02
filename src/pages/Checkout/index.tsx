@@ -30,6 +30,7 @@ const confirmationOrderValidationSchema = zod.object({
   neighbourhood: zod.string(),
   city: zod.string(),
   UF: zod.string(),
+  card: zod.string(),
 })
 
 export type ConfirmationOrderFormData = zod.infer<
@@ -56,6 +57,14 @@ export default function Checkout() {
       Macchiato: 0,
       Americano: 0,
       Mochaccino: 0,
+      CEP: '',
+      city: '',
+      card: 'CREDIT',
+      complement: '',
+      neighbourhood: '',
+      number: 0,
+      street: '',
+      UF: '',
     },
   })
   const { handleSubmit, setValue } = confirmationOrderForm
