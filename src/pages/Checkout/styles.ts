@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CheckoutContainer = styled.main`
+export const CheckoutContainer = styled.form`
   margin-top: 7rem;
   display: grid;
   grid-template-columns: 640px 1fr;

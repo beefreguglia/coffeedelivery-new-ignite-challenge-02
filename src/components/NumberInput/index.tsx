@@ -11,7 +11,6 @@ import {
 interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
 }
-
 export default function NumberInput({ id, ...rest }: NumberInputProps) {
   const { register, setValue, watch } = useFormContext()
   const coffeeValue = watch(id)
