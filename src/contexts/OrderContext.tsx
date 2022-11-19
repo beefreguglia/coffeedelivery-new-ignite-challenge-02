@@ -1,9 +1,25 @@
 import { createContext, ReactNode, useState } from 'react'
+type Images =
+  | 'Capuccino'
+  | 'Arabe'
+  | 'CafeComLeite'
+  | 'CafeGelado'
+  | 'Cubano'
+  | 'ChocolateQuente'
+  | 'Expresso'
+  | 'ExpressoCremoso'
+  | 'Havaiano'
+  | 'Irlandes'
+  | 'Latte'
+  | 'Macchiato'
+  | 'Americano'
+  | 'Mochaccino'
 
 interface createOrderData {
   coffeeQuantity: number
   name: string
   price: number
+  image: Images
 }
 
 type Order = {
@@ -11,10 +27,12 @@ type Order = {
   name: string
   price: number
   quantity: number
+  image: Images
 }
 
 interface OrderContextType {
   orders: Order[]
+  allItemsQuantity: number
   createNewOrder: (data: createOrderData) => void
 }
 
@@ -26,7 +44,10 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [orders, setOrders] = useState<Order[]>([])
-
+  const allItemsQuantity: number = orders.reduce(
+    (prevVal, currentOrder) => prevVal + currentOrder.quantity,
+    0,
+  )
   function createNewOrder(data: createOrderData) {
     const id = String(new Date().getTime())
     const newOrder: Order = {
@@ -34,6 +55,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
       name: data.name,
       price: data.price,
       quantity: data.coffeeQuantity,
+      image: data.image,
     }
     setOrders((state) => [...state, newOrder])
   }
@@ -42,6 +64,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
       value={{
         orders,
         createNewOrder,
+        allItemsQuantity,
       }}
     >
       {children}

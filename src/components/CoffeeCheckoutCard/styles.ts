@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const CoffeeCheckoutCardContainer = styled.div`
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  padding: 0.5rem 0.25rem;
+  margin-left: -0.5rem;
+  padding: 0.5rem 2rem 0.5rem 0.25rem;
 `
 
 export const CoffeeInformationContainer = styled.div`

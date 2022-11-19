@@ -8,18 +8,21 @@ import {
   InputContainer,
 } from './styles'
 
-interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  id: string
+}
 
 export default function NumberInput({ id, ...rest }: NumberInputProps) {
   const { register, setValue, watch } = useFormContext()
-  const coffeeValue = watch('coffeeQuantity')
+  const coffeeValue = watch(id)
   const isMaxValue = coffeeValue >= 10
   const isMinValue = coffeeValue <= 0
+
   function incresseValue() {
-    setValue('coffeeQuantity', coffeeValue + 1)
+    setValue(id, coffeeValue + 1)
   }
   function decreesValue() {
-    setValue('coffeeQuantity', coffeeValue - 1)
+    setValue(id, coffeeValue - 1)
   }
 
   return (
@@ -31,18 +34,13 @@ export default function NumberInput({ id, ...rest }: NumberInputProps) {
       >
         <Minus weight="bold" />
       </DecrementButton>
-      {register ? (
-        <Input
-          type="number"
-          {...register('coffeeQuantity', {
-            valueAsNumber: true,
-          })}
-          {...rest}
-        />
-      ) : (
-        <Input type="number" {...rest} />
-      )}
-
+      <Input
+        type="number"
+        {...register(id, {
+          valueAsNumber: true,
+        })}
+        {...rest}
+      />
       <IncrementButton
         type="button"
         onClick={incresseValue}

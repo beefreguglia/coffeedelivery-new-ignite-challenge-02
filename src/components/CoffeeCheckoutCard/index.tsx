@@ -48,6 +48,45 @@ interface CoffeeCheckoutCardProps {
   price: number
 }
 
+interface ImageSelectorProps {
+  image: Images
+}
+
+function ImageSelector({ image }: ImageSelectorProps) {
+  switch (image) {
+    case 'Americano':
+      return <StyledImage src={Americano} alt="" />
+    case 'Capuccino':
+      return <StyledImage src={Capuccino} alt="" />
+    case 'Arabe':
+      return <StyledImage src={Arabe} alt="" />
+    case 'CafeComLeite':
+      return <StyledImage src={CafeComLeite} alt="" />
+    case 'CafeGelado':
+      return <StyledImage src={CafeGelado} alt="" />
+    case 'ChocolateQuente':
+      return <StyledImage src={ChocolateQuente} alt="" />
+    case 'Cubano':
+      return <StyledImage src={Cubano} alt="" />
+    case 'Expresso':
+      return <StyledImage src={Expresso} alt="" />
+    case 'ExpressoCremoso':
+      return <StyledImage src={ExpressoCremoso} alt="" />
+    case 'Havaiano':
+      return <StyledImage src={Havaiano} alt="" />
+    case 'Irlandes':
+      return <StyledImage src={Irlandes} alt="" />
+    case 'Latte':
+      return <StyledImage src={Latte} alt="" />
+    case 'Macchiato':
+      return <StyledImage src={Macchiato} alt="" />
+    case 'Mochaccino':
+      return <StyledImage src={Mochaccino} alt="" />
+    default:
+      return <StyledImage src={Expresso} alt="" />
+  }
+}
+
 export default function CoffeeCheckoutCard({
   image,
   name,
@@ -56,28 +95,11 @@ export default function CoffeeCheckoutCard({
   return (
     <CoffeeCheckoutCardContainer>
       <CoffeeInformationContainer>
-        {image === 'Capuccino' && <StyledImage src={Capuccino} alt="" />}
-        {image === 'Arabe' && <StyledImage src={Arabe} alt="" />}
-        {image === 'CafeComLeite' && <StyledImage src={CafeComLeite} alt="" />}
-        {image === 'CafeGelado' && <StyledImage src={CafeGelado} alt="" />}
-        {image === 'ChocolateQuente' && (
-          <StyledImage src={ChocolateQuente} alt="" />
-        )}
-        {image === 'Cubano' && <StyledImage src={Cubano} alt="" />}
-        {image === 'Expresso' && <StyledImage src={Expresso} alt="" />}
-        {image === 'ExpressoCremoso' && (
-          <StyledImage src={ExpressoCremoso} alt="" />
-        )}
-        {image === 'Havaiano' && <StyledImage src={Havaiano} alt="" />}
-        {image === 'Irlandes' && <StyledImage src={Irlandes} alt="" />}
-        {image === 'Latte' && <StyledImage src={Latte} alt="" />}
-        {image === 'Macchiato' && <StyledImage src={Macchiato} alt="" />}
-        {image === 'Americano' && <StyledImage src={Americano} alt="" />}
-        {image === 'Mochaccino' && <StyledImage src={Mochaccino} alt="" />}
+        <ImageSelector image={image} />
         <InformationContainer>
           <Text>{name}</Text>
           <ButtonsContainer>
-            <NumberInput />
+            <NumberInput id={image} />
             <Button variant="grey">
               <Trash size={16} />
               REMOVER
@@ -85,7 +107,7 @@ export default function CoffeeCheckoutCard({
           </ButtonsContainer>
         </InformationContainer>
       </CoffeeInformationContainer>
-      <Price>R$ {price}</Price>
+      <Price>R${price}</Price>
     </CoffeeCheckoutCardContainer>
   )
 }

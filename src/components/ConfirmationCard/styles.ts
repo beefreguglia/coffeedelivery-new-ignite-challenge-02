@@ -18,8 +18,30 @@ export const ConfirmationFormCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  max-height: 80vh;
-  overflow: auto;
+`
+
+export const CardsContainer = styled.div`
+  max-height: 30vh;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme['grey-400']};
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme['purple-500']};
+    border-radius: 20px;
+    border: 2px solid ${({ theme }) => theme['grey-400']};
+  }
 `
 export const TotalValuesContainer = styled.div`
   display: flex;

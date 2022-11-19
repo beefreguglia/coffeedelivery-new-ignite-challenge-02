@@ -76,17 +76,20 @@ export default function Card({
   const { handleSubmit, reset } = newOrderForm
   const { createNewOrder } = useContext(OrderContext)
 
-  function handleNewOrder(data: NewOrderFormData) {
+  function handleNewOrder(data: any) {
     createNewOrder({
       coffeeQuantity: data.coffeeQuantity,
       name,
       price,
+      image,
     })
+
     if (data.coffeeQuantity > 1) {
       toast.success('Os cafés foram adicionados com sucesso ao seu carrinho!')
     } else {
       toast.success('O café foi adicionado com sucesso ao seu carrinho!')
     }
+
     reset()
   }
 
@@ -120,7 +123,7 @@ export default function Card({
         </Price>
         <QuantityContainer>
           <FormProvider {...newOrderForm}>
-            <NumberInput id="coffeesQuantity" />
+            <NumberInput id="coffeeQuantity" />
           </FormProvider>
           <Button variant="purple" type="submit">
             <ShoppingCart weight="fill" />
