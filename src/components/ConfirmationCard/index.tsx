@@ -5,6 +5,7 @@ import * as zod from 'zod'
 import { OrderContext } from '../../contexts/OrderContext'
 import Button from '../Button'
 import CoffeeCheckoutCard from '../CoffeeCheckoutCard'
+import { NotFound } from '../NotFound'
 import {
   CardsContainer,
   ConfirmationCardContainer,
@@ -54,6 +55,7 @@ type FieldIds =
   | 'Mochaccino'
 export default function ConfirmationCard() {
   const { orders } = useContext(OrderContext)
+  const haveOrders = orders.length > 0
 
   const confirmationOrderForm = useForm<ConfirmationOrderFormData>({
     resolver: zodResolver(confirmationOrderValidationSchema),
@@ -86,20 +88,26 @@ export default function ConfirmationCard() {
       })
     }
   }, [orders, setValue])
+
   return (
     <ConfirmationCardContainer>
       <MainTitle>Cafés selecionados</MainTitle>
       <ConfirmationFormCard>
         <FormProvider {...confirmationOrderForm}>
           <CardsContainer>
-            {orders.map((order) => (
-              <CoffeeCheckoutCard
-                image={order.image}
-                name={order.name}
-                price={order.price}
-                key={order.id}
-              />
-            ))}
+            {haveOrders ? (
+              orders.map((order) => (
+                <CoffeeCheckoutCard
+                  image={order.image}
+                  name={order.name}
+                  price={order.price}
+                  key={order.id}
+                  id={order.id}
+                />
+              ))
+            ) : (
+              <NotFound />
+            )}
           </CardsContainer>
         </FormProvider>
         <TotalValuesContainer>
@@ -115,7 +123,12 @@ export default function ConfirmationCard() {
             <Total>Total</Total>
             <Total>R$ 33,20</Total>
           </ValuesContainer>
-          <Button variant="yellow" isLargeButton>
+          <Button
+            variant="yellow"
+            type="submit"
+            isLargeButton
+            disabled={!haveOrders}
+          >
             Confirmar Pedido
           </Button>
         </TotalValuesContainer>

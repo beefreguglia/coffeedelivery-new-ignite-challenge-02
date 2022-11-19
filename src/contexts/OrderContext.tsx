@@ -34,6 +34,7 @@ interface OrderContextType {
   orders: Order[]
   allItemsQuantity: number
   createNewOrder: (data: createOrderData) => void
+  deleteOrder: (id: string) => void
 }
 
 export const OrderContext = createContext({} as OrderContextType)
@@ -48,6 +49,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     (prevVal, currentOrder) => prevVal + currentOrder.quantity,
     0,
   )
+
   function createNewOrder(data: createOrderData) {
     const id = String(new Date().getTime())
     const newOrder: Order = {
@@ -59,12 +61,19 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
     setOrders((state) => [...state, newOrder])
   }
+
+  function deleteOrder(id: string) {
+    const filteredOrders = orders.filter((order) => order.id !== id)
+    setOrders(filteredOrders)
+  }
+
   return (
     <OrderContext.Provider
       value={{
         orders,
         createNewOrder,
         allItemsQuantity,
+        deleteOrder,
       }}
     >
       {children}

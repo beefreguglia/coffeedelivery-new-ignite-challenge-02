@@ -25,6 +25,8 @@ import Mochaccino from '../../assets/Mochaccino.png'
 import NumberInput from '../NumberInput'
 import Button from '../Button'
 import { Trash } from 'phosphor-react'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
 
 type Images =
   | 'Capuccino'
@@ -46,6 +48,7 @@ interface CoffeeCheckoutCardProps {
   image: Images
   name: string
   price: number
+  id: string
 }
 
 interface ImageSelectorProps {
@@ -91,7 +94,14 @@ export default function CoffeeCheckoutCard({
   image,
   name,
   price,
+  id,
 }: CoffeeCheckoutCardProps) {
+  const { deleteOrder } = useContext(OrderContext)
+
+  function handleDeleteOrder() {
+    deleteOrder(id)
+  }
+
   return (
     <CoffeeCheckoutCardContainer>
       <CoffeeInformationContainer>
@@ -100,7 +110,7 @@ export default function CoffeeCheckoutCard({
           <Text>{name}</Text>
           <ButtonsContainer>
             <NumberInput id={image} />
-            <Button variant="grey">
+            <Button variant="grey" onClick={handleDeleteOrder}>
               <Trash size={16} />
               REMOVER
             </Button>

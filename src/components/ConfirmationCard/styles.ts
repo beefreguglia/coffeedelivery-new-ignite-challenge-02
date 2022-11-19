@@ -22,7 +22,7 @@ export const ConfirmationFormCard = styled.div`
 
 export const CardsContainer = styled.div`
   max-height: 30vh;
-  overflow-y: auto;
+  overflow: auto;
   width: 100%;
   display: flex;
   flex-direction: column;

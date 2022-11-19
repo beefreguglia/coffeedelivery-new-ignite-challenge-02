@@ -21,10 +21,10 @@ export default function Button({
 }: ButtonProps) {
   return (
     <ButtonContainer
-      {...props}
       variant={variant}
       isLargeButton={isLargeButton}
       isSelected={isSelected}
+      {...props}
     >
       {children}
       {isCart && cartQuantity !== 0 && (

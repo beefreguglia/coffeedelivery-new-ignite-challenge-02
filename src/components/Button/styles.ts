@@ -59,6 +59,10 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     color: ${({ variant, theme }) =>
       variant === 'lightPurple' && theme['purple-900']};
   }
+  :disabled {
+    background-color: ${({ theme }) => theme['grey-600']};
+    cursor: not-allowed;
+  }
 `
 export const CartCounter = styled.div<{ variant: ButtonVariants }>`
   width: 20px;
