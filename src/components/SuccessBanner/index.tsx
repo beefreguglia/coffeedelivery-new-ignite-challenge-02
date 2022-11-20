@@ -7,10 +7,13 @@ import {
   SuccessBannerContainer,
   Text,
 } from './styles'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
 
 const pins = ['MapPin', 'Timer', 'Dollar']
 
 export default function SuccessBanner() {
+  const { address, cardType } = useContext(OrderContext)
   return (
     <SuccessBannerBorder>
       <SuccessBannerContainer>
@@ -23,9 +26,12 @@ export default function SuccessBanner() {
                     <MapPin weight="fill" />
                   </ImageContainer>
                   <Text>
-                    Entrega em <span>Rua João Daniel Martinelli, 102</span>
+                    Entrega em{' '}
+                    <span>
+                      {address.street}, {address.number}
+                    </span>
                     <br />
-                    Farrapos - Porto Alegre, RS
+                    {address.neighborhood} - {address.city}, {address.uf}
                   </Text>
                 </Pin>
               )}
@@ -49,7 +55,11 @@ export default function SuccessBanner() {
                   <Text>
                     Pagamento na entrega
                     <br />
-                    <span>Cartão de Crédito</span>
+                    <span>
+                      {cardType === 'CREDIT' && 'Cartão de crédito'}
+                      {cardType === 'DEBIT' && 'Cartão de débito'}
+                      {cardType === 'MONEY' && 'Dinheiro'}
+                    </span>
                   </Text>
                 </Pin>
               )}

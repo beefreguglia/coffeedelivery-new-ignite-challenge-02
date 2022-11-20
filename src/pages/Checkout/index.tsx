@@ -7,30 +7,31 @@ import PaymentCard from '../../components/PaymentCard'
 import { CheckoutContainer, LeftContainer, RightContainer } from './styles'
 import { OrderContext } from '../../contexts/OrderContext'
 import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const confirmationOrderValidationSchema = zod.object({
-  Americano: zod.number(),
-  Arabe: zod.number(),
-  Capuccino: zod.number(),
-  CafeComLeite: zod.number(),
-  CafeGelado: zod.number(),
-  Cubano: zod.number(),
-  ChocolateQuente: zod.number(),
-  Expresso: zod.number(),
-  ExpressoCremoso: zod.number(),
-  Havaiano: zod.number(),
-  Irlandes: zod.number(),
-  Latte: zod.number(),
-  Macchiato: zod.number(),
-  Mochaccino: zod.number(),
-  CEP: zod.string(),
-  street: zod.string(),
-  number: zod.number(),
-  complement: zod.string(),
-  neighbourhood: zod.string(),
-  city: zod.string(),
-  UF: zod.string(),
-  card: zod.string(),
+  Americano: zod.number().optional(),
+  Arabe: zod.number().optional(),
+  Capuccino: zod.number().optional(),
+  CafeComLeite: zod.number().optional(),
+  CafeGelado: zod.number().optional(),
+  Cubano: zod.number().optional(),
+  ChocolateQuente: zod.number().optional(),
+  Expresso: zod.number().optional(),
+  ExpressoCremoso: zod.number().optional(),
+  Havaiano: zod.number().optional(),
+  Irlandes: zod.number().optional(),
+  Latte: zod.number().optional(),
+  Macchiato: zod.number().optional(),
+  Mochaccino: zod.number().optional(),
+  CEP: zod.string().min(1, 'Informe o CEP'),
+  street: zod.string().min(1, 'Informe a tarefa'),
+  number: zod.number().min(1, 'Informe o número'),
+  complement: zod.string().min(1, 'Informe a tarefa'),
+  neighborhood: zod.string().min(1, 'Informe a tarefa'),
+  city: zod.string().min(1, 'Informe a tarefa'),
+  UF: zod.string().min(1, 'Informe a tarefa'),
+  card: zod.string().min(1, 'Informe a tarefa'),
 })
 
 export type ConfirmationOrderFormData = zod.infer<
@@ -38,13 +39,14 @@ export type ConfirmationOrderFormData = zod.infer<
 >
 
 export default function Checkout() {
-  const { orders } = useContext(OrderContext)
-
+  const { orders, completeAddress, setCardType } = useContext(OrderContext)
+  const navigate = useNavigate()
   const confirmationOrderForm = useForm<ConfirmationOrderFormData>({
     resolver: zodResolver(confirmationOrderValidationSchema),
     defaultValues: {
-      Capuccino: 0,
+      Americano: 0,
       Arabe: 0,
+      Capuccino: 0,
       CafeComLeite: 0,
       CafeGelado: 0,
       Cubano: 0,
@@ -55,21 +57,33 @@ export default function Checkout() {
       Irlandes: 0,
       Latte: 0,
       Macchiato: 0,
-      Americano: 0,
       Mochaccino: 0,
       CEP: '',
-      city: '',
-      card: 'CREDIT',
-      complement: '',
-      neighbourhood: '',
-      number: 0,
       street: '',
+      number: 0,
+      complement: '',
+      neighborhood: '',
+      city: '',
       UF: '',
+      card: 'CREDIT',
     },
   })
   const { handleSubmit, setValue } = confirmationOrderForm
 
-  function handleConcludeOrder() {}
+  function handleConcludeOrder(data: ConfirmationOrderFormData) {
+    console.log('entrou')
+    completeAddress({
+      CEP: data.CEP,
+      city: data.city,
+      complement: data.complement,
+      neighborhood: data.neighborhood,
+      number: data.number,
+      street: data.street,
+      uf: data.UF,
+    })
+    setCardType(data.card)
+    navigate('/success')
+  }
 
   useEffect(() => {
     function handleValues() {
@@ -126,8 +140,8 @@ export default function Checkout() {
   }, [orders, setValue])
 
   return (
-    <FormProvider {...confirmationOrderForm}>
-      <CheckoutContainer onSubmit={handleSubmit(handleConcludeOrder)}>
+    <CheckoutContainer onSubmit={handleSubmit(handleConcludeOrder)}>
+      <FormProvider {...confirmationOrderForm}>
         <LeftContainer>
           <AddressCard />
           <PaymentCard />
@@ -135,7 +149,7 @@ export default function Checkout() {
         <RightContainer>
           <ConfirmationCard />
         </RightContainer>
-      </CheckoutContainer>
-    </FormProvider>
+      </FormProvider>
+    </CheckoutContainer>
   )
 }

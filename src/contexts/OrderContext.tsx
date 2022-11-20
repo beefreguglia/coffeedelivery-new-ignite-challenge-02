@@ -23,7 +23,7 @@ interface createOrderData {
   image: Images
 }
 
-type Order = {
+interface Order {
   id: string
   name: string
   price: number
@@ -31,12 +31,26 @@ type Order = {
   image: Images
 }
 
+interface Address {
+  CEP: string
+  street: string
+  neighborhood: string
+  city: string
+  uf: string
+  number: number
+  complement: string
+}
+
 interface OrderContextType {
   orders: Order[]
+  address: Address
+  cardType: string
   allItemsQuantity: number
   allItemsValue: number
   createNewOrder: (data: createOrderData) => void
   deleteOrder: (id: string) => void
+  completeAddress: (newAddress: Address) => void
+  setCardType: (cardType: string) => void
 }
 
 export const OrderContext = createContext({} as OrderContextType)
@@ -47,11 +61,14 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [orders, setOrders] = useState<Order[]>([])
+  const [address, setAddress] = useState<Address>({} as Address)
+  const [card, setCard] = useState('')
 
   const allItemsQuantity: number = orders.reduce(
     (prevVal, currentOrder) => prevVal + currentOrder.quantity,
     0,
   )
+
   const allItemsValue: number = orders.reduce(
     (prevVal, currentOrder) =>
       prevVal + currentOrder.price * currentOrder.quantity,
@@ -96,14 +113,25 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
   }
 
+  function completeAddress(newAddress: Address) {
+    setAddress(newAddress)
+  }
+
+  function setCardType(cardType: string) {
+    setCard(cardType)
+  }
   return (
     <OrderContext.Provider
       value={{
         orders,
+        address,
         allItemsQuantity,
         allItemsValue,
         createNewOrder,
         deleteOrder,
+        completeAddress,
+        cardType: card,
+        setCardType,
       }}
     >
       {children}

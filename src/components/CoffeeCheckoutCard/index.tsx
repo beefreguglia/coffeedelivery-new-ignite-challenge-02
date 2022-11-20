@@ -110,7 +110,7 @@ export default function CoffeeCheckoutCard({
           <Text>{name}</Text>
           <ButtonsContainer>
             <NumberInput id={image} />
-            <Button variant="grey" onClick={handleDeleteOrder}>
+            <Button variant="grey" onClick={handleDeleteOrder} type="button">
               <Trash size={16} />
               REMOVER
             </Button>

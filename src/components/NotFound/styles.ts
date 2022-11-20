@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NotFoundContainer = styled.h1`
+export const NotFoundContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

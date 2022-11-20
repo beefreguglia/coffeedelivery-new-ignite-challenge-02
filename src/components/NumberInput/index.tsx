@@ -35,10 +35,10 @@ export default function NumberInput({ id, ...rest }: NumberInputProps) {
       </DecrementButton>
       <Input
         type="number"
+        {...rest}
         {...register(id, {
           valueAsNumber: true,
         })}
-        {...rest}
       />
       <IncrementButton
         type="button"

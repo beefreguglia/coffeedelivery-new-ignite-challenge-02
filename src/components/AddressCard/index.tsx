@@ -24,19 +24,24 @@ export default function AddressCard() {
         </TitleContainer>
         <Text>Informe o endereço onde deseja receber seu pedido</Text>
         <InputDivider>
-          <Input placeholder="CEP" isMediumButton />
+          <Input placeholder="CEP" id="CEP" isMediumButton />
         </InputDivider>
         <InputDividerLarge>
-          <Input placeholder="Rua" />
+          <Input placeholder="Rua" id="street" />
         </InputDividerLarge>
         <DoubleInputDivider>
-          <Input placeholder="Número" isMediumButton />
-          <Input placeholder="Complemento" isOpcional />
+          <Input
+            id="number"
+            placeholder="Número"
+            isMediumButton
+            type="number"
+          />
+          <Input placeholder="Complemento" isOpcional id="complement" />
         </DoubleInputDivider>
         <TripleInputDivider>
-          <Input placeholder="Bairro" isMediumButton />
-          <Input placeholder="Cidade" />
-          <Input placeholder="UF" isSmallButton />
+          <Input placeholder="Bairro" id="neighborhood" isMediumButton />
+          <Input id="city" placeholder="Cidade" />
+          <Input id="UF" placeholder="UF" isSmallButton />
         </TripleInputDivider>
       </FormCard>
     </AddressCardContainer>

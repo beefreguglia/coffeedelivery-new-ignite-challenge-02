@@ -89,7 +89,6 @@ export default function Card({
     } else {
       toast.success('O café foi adicionado com sucesso ao seu carrinho!')
     }
-
     reset()
   }
 

@@ -44,6 +44,7 @@ export default function PaymentCard() {
           variant="grey"
           isSelected={isCreditCard}
           onClick={handleCreditCard}
+          type="button"
         >
           <CreditCard size={16} />
           CARTÃO DE CRÉDITO
@@ -52,11 +53,17 @@ export default function PaymentCard() {
           variant="grey"
           isSelected={isDebitCard}
           onClick={handleDebitCard}
+          type="button"
         >
           <Bank size={16} />
           CARTÃO DE DÉBITO
         </Button>
-        <Button variant="grey" isSelected={isMoney} onClick={handleMoney}>
+        <Button
+          variant="grey"
+          isSelected={isMoney}
+          onClick={handleMoney}
+          type="button"
+        >
           <Money size={16} />
           DINHEIRO
         </Button>
